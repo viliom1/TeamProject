@@ -44,6 +44,7 @@ namespace CoinCollector
                         isCoin = IsCoinRight(board, position);
                         if (isCoin == true)
                         {
+                            Console.Beep();
                             CoinCollected(points);
                             points += 100;
                         }
@@ -68,6 +69,7 @@ namespace CoinCollector
                         isCoin = IsCoinLeft(board, position);
                         if (isCoin == true)
                         {
+                            Console.Beep();
                             CoinCollected(points);
                             points += 100;
                         }
@@ -93,6 +95,7 @@ namespace CoinCollector
                         isCoin = IsCoinDown(board, position);
                         if (isCoin == true)
                         {
+                            Console.Beep();
                             CoinCollected(points);
                             points += 100; ;
                         }
@@ -117,6 +120,7 @@ namespace CoinCollector
                         isCoin = IsCoinUp(board, position);
                         if (isCoin == true)
                         {
+                            Console.Beep();
                             CoinCollected(points);
                             points += 100;
                         }
