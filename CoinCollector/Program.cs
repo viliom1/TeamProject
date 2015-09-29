@@ -11,23 +11,23 @@ namespace CoinCollector
     {
         static void Main(string[] args)
         {
-            int points = 0;
-            int wallHits = 0;
-            int steps = 0;
+            int points = 0; //score tracking
+            int wallHits = 0; // wallhits tracking
+            int steps = 0; // steps tracking
             bool isCoin = false;
             string[,] matrix = new string[20, 20];
-            int[] position = { 0, 0 };
+            int[] position = { 0, 0 }; // position of the "@" in the array
             matrix = BoardGen(matrix);
             string[,] board = WallGenerator(matrix);
             board = CoinGen(board);
-            int[] consolePos = { 1, 1 };
+            int[] consolePos = { 1, 1 }; // position of the "@" on the console
             
-            BoardPrint(board, points, wallHits, steps);
+            BoardPrint(board, points, wallHits, steps); 
             while (true)
             {
-                ConsoleKeyInfo movement = Console.ReadKey();
-                
-                if (movement.Key == ConsoleKey.RightArrow)
+                ConsoleKeyInfo movement = Console.ReadKey(); // reading the key
+                // now checking what key was read
+                if (movement.Key == ConsoleKey.RightArrow) 
                 {
                     bool wall = IsWallRight(board,position);
                     StepsUpdate(steps);
@@ -36,7 +36,7 @@ namespace CoinCollector
                     {
                         WallHitsUpdate(wallHits);
                         wallHits++;
-                        //BoardPrint(board,points,wallHits,steps);
+                        
                     }
                     else
                     {
@@ -73,7 +73,7 @@ namespace CoinCollector
 
 
                         MoveLeft(position,consolePos);
-                        //BoardPrint(board, points, wallHits, steps);
+                        
                     }
                 }
                 else if (movement.Key == ConsoleKey.DownArrow)
@@ -98,7 +98,7 @@ namespace CoinCollector
                     
                     
                         MoveDown(position,consolePos);
-                        //BoardPrint(board, points, wallHits, steps);
+                        
                     }
                 }
                 else if (movement.Key == ConsoleKey.UpArrow)
@@ -122,7 +122,7 @@ namespace CoinCollector
 
 
                         MoveUp(position,consolePos);
-                        //BoardPrint(board, points, wallHits, steps);
+                        
                     }
                 }
                 if (points == 500)
@@ -131,7 +131,7 @@ namespace CoinCollector
                 }
             }
             
-            int finalScore = points - wallHits * 10 - steps;
+            int finalScore = points - wallHits * 10 - steps; // calculating the final score
             if (finalScore >0)
             {
                 Console.WriteLine("GEEEEGEEEEE!!!!!! Your score is: {0}",finalScore);
@@ -198,13 +198,13 @@ namespace CoinCollector
         }
         static void MoveRight(int[]position, int[] consolePos)
         {
-            Console.SetCursorPosition(consolePos[0], consolePos[1]);
+            Console.SetCursorPosition(consolePos[0], consolePos[1]); // setting the cursor to the current position of the "@"
             Console.Write(". @");
-            Console.SetCursorPosition(0, 22);
-            position[1]++;
-            consolePos[0] += 2;
+            Console.SetCursorPosition(0, 22); // moving the cursor out of the board
+            position[1]++; // updating the position
+            consolePos[0] += 2;// and the console position
             
-        }
+        }   // Move**** are pringting on the console with the movement you want
         static void MoveLeft(int[] position, int[] consolePos)
         {
             Console.SetCursorPosition(consolePos[0]-2, consolePos[1]);
@@ -212,7 +212,7 @@ namespace CoinCollector
             Console.SetCursorPosition(0, 22);
             position[1]--;
             consolePos[0] -= 2;
-        }
+        }  
         static void MoveDown(int[] position, int[] consolePos)
         {
             Console.SetCursorPosition(consolePos[0], consolePos[1]);
@@ -243,7 +243,7 @@ namespace CoinCollector
             }
             
             return coin;
-        }
+        }  //IsCoin*** checks if the next movement lands on a coin
         static bool IsCoinLeft (string[,]matrix,int[] positon)
         {
             bool coin = false;
@@ -282,7 +282,7 @@ namespace CoinCollector
                 wall = true;
             }
             return wall;
-        }
+        } //IsWall*** checks if the next movement lands on a wall
         static bool IsWallLeft(string[,] matrix, int[] position)
         {
             bool wall = false;
@@ -330,26 +330,26 @@ namespace CoinCollector
             }
             return matrix;
 
-        }   
+        }    // generates walls on the board in random positions
         static void CoinCollected (int points)
         {
             points += 100;
             Console.SetCursorPosition(7, 0);
             Console.Write(points);
-        }
+        }  // updates the score
         static void StepsUpdate (int steps)
         {
             steps++;
             Console.SetCursorPosition(26, 0);
             Console.Write(steps);
-        }
+        } // updates the steps
         static void WallHitsUpdate(int wallHits)
         {
             wallHits++;
             Console.SetCursorPosition(16, 0);
             Console.Write(wallHits);
             Console.SetCursorPosition(0, 22);
-        }
+        } //updates the hits
 
     }
 }
