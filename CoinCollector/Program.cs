@@ -22,7 +22,8 @@ namespace CoinCollector
             board = CoinGen(board);
             int[] consolePos = { 1, 1 }; // position of the "@" on the console
             
-            BoardPrint(board, points, wallHits, steps); 
+            BoardPrint(board, points, wallHits, steps);
+            ColorCoinsAndWalls(board);
             while (true)
             {
                 ConsoleKeyInfo movement = Console.ReadKey(); // reading the key
@@ -199,7 +200,10 @@ namespace CoinCollector
         static void MoveRight(int[]position, int[] consolePos)
         {
             Console.SetCursorPosition(consolePos[0], consolePos[1]); // setting the cursor to the current position of the "@"
-            Console.Write(". @");
+            Console.Write(". ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("@");
+            Console.ResetColor();
             Console.SetCursorPosition(0, 22); // moving the cursor out of the board
             position[1]++; // updating the position
             consolePos[0] += 2;// and the console position
@@ -208,7 +212,10 @@ namespace CoinCollector
         static void MoveLeft(int[] position, int[] consolePos)
         {
             Console.SetCursorPosition(consolePos[0]-2, consolePos[1]);
-            Console.Write("@ .");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("@");
+            Console.ResetColor();
+            Console.Write(" .");
             Console.SetCursorPosition(0, 22);
             position[1]--;
             consolePos[0] -= 2;
@@ -218,7 +225,9 @@ namespace CoinCollector
             Console.SetCursorPosition(consolePos[0], consolePos[1]);
             Console.Write(".");
             Console.SetCursorPosition(consolePos[0], consolePos[1]+1);
+            Console.ForegroundColor = ConsoleColor.Green; 
             Console.Write("@");
+            Console.ResetColor();
             Console.SetCursorPosition(0, 22);
             position[0]++;
             consolePos[1]++; ;
@@ -228,7 +237,9 @@ namespace CoinCollector
             Console.SetCursorPosition(consolePos[0], consolePos[1]);
             Console.Write(".");
             Console.SetCursorPosition(consolePos[0], consolePos[1] -1);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("@");
+            Console.ResetColor();
             Console.SetCursorPosition(0, 22);
             position[0]--;
             consolePos[1]--; 
@@ -350,6 +361,39 @@ namespace CoinCollector
             Console.Write(wallHits);
             Console.SetCursorPosition(0, 22);
         } //updates the hits
+        static void ColorCoinsAndWalls (string[,] board)
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i,j] == "$")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.SetCursorPosition(j*2+1,i+1);
+                        Console.Write("$");
+                        Console.ResetColor();
+                        Console.SetCursorPosition(0, 22);
+                    }
+                    else if(board[i,j] == "|")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.SetCursorPosition(j * 2 + 1, i + 1);
+                        Console.Write("|");
+                        Console.ResetColor();
+                        Console.SetCursorPosition(0, 22);
+                    }
+                    else if(board[i,j] == "@")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.SetCursorPosition(j * 2 + 1, i + 1);
+                        Console.Write("@");
+                        Console.ResetColor();
+                        Console.SetCursorPosition(0, 22);
+                    }
 
+                }
+            }
+        }
     }
 }
